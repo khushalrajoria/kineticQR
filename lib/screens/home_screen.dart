@@ -1,9 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:kitneticqr/screens/scan_screen.dart';
-import 'package:kitneticqr/screens/settings_screen.dart';
-
 import 'generate_screen.dart';
-
+import 'scan_screen.dart';
+import 'settings_screen.dart';
 
 class HomeScreen extends StatefulWidget {
   @override
@@ -24,7 +22,7 @@ class _HomeScreenState extends State<HomeScreen> {
       body: _screens[_currentIndex],
       bottomNavigationBar: BottomNavigationBar(
         currentIndex: _currentIndex,
-        items: [
+        items: const [
           BottomNavigationBarItem(
             icon: Icon(Icons.qr_code_scanner),
             label: 'Scan',

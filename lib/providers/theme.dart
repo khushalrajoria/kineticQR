@@ -13,12 +13,11 @@ class ThemeProvider extends ChangeNotifier {
   ThemeData get lightTheme => ThemeData(
         brightness: Brightness.light,
         primarySwatch: Colors.blue,
-        // Define other light theme properties
+       
       );
 
   ThemeData get darkTheme => ThemeData(
         brightness: Brightness.dark,
         primarySwatch: Colors.blue,
-        // Define other dark theme properties
       );
 }

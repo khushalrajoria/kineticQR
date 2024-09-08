@@ -69,10 +69,11 @@ class _ScanScreenState extends State<ScanScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Scan QR Code'),
+        title: const Text('Scan QR Code'),
       ),
-      body: scannedData == null
-          ? QRView(
+        body: AnimatedSwitcher(
+      duration: Duration(milliseconds: 500),
+      child: scannedData == null ? QRView(
               key: qrKey,
               onQRViewCreated: _onQRViewCreated,
               overlay: QrScannerOverlayShape(
@@ -84,38 +85,46 @@ class _ScanScreenState extends State<ScanScreen> {
               ),
             )
           : _buildResult(),
-    );
-  }
+      transitionBuilder: (Widget child, Animation<double> animation) {
+        return FadeTransition(opacity: animation, child: child);
+      },
+    ),
+  );
+}
 
   Widget _buildResult() {
-    return Center(
-      child: Padding(
-        padding: EdgeInsets.all(16.0),
+  return Center(
+    child: Padding(
+      padding: const EdgeInsets.all(16.0),
+      child: AnimatedOpacity(
+        opacity: 1.0,
+        duration: const Duration(milliseconds: 500),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            Text(
+            const Text(
               'Scanned Data:',
               style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
             ),
-            SizedBox(height: 10),
+            const SizedBox(height: 10),
             SelectableText(
               scannedData ?? '',
               textAlign: TextAlign.center,
             ),
-            SizedBox(height: 20),
+            const SizedBox(height: 20),
             if (isURL)
               ElevatedButton(
                 onPressed: _openURL,
-                child: Text('Open in Browser'),
+                child: const Text('Open in Browser'),
               ),
-            SizedBox(height: 10),
+            const SizedBox(height: 10),
             ElevatedButton(
               onPressed: _scanAgain,
-              child: Text('Scan Again'),
+              child: const Text('Scan Again'),
             ),
           ],
         ),
+      )
       ),
     );
   }
